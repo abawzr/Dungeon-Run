@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -8,6 +9,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private float gravity;
+    [SerializeField] private AudioSource footstepAudioSource;
+    [SerializeField] private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip footstepClip;
+    [SerializeField] private AudioClip jumpClip;
+    [SerializeField] private AudioClip doubleJumpClip;
+    [SerializeField] private AudioClip landingClip;
 
     private CharacterController _controller;
     private Vector2 _moveInput;
@@ -32,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         PlayerCrouch.OnPlayerCrouch += ChangePlayerSpeed;
+
+        StartCoroutine(PlayFootstepSound());
     }
 
     private void Update()
@@ -60,6 +69,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayFootstepSound()
+    {
+        while (true)
+        {
+            if (_controller.isGrounded && _moveInput != Vector2.zero && !PlayerCrouch.IsCrouch)
+            {
+                footstepAudioSource.PlayOneShot(footstepClip);
+                yield return new WaitForSeconds(0.6f);
+            }
+            yield return null;
+        }
+    }
+
     private void HandleMove(Vector2 input)
     {
         _moveInput = input;
@@ -70,11 +92,13 @@ public class PlayerMovement : MonoBehaviour
         if (_controller.isGrounded && !PlayerCrouch.IsCrouch)
         {
             _verticalVelocity = jumpPower;
+            playerAudioSource.PlayOneShot(jumpClip);
         }
 
         else if (!_controller.isGrounded && _hasDoubleJump && !PlayerCrouch.IsCrouch)
         {
             _verticalVelocity = jumpPower;
+            playerAudioSource.PlayOneShot(doubleJumpClip);
             _hasDoubleJump = false;
         }
     }
