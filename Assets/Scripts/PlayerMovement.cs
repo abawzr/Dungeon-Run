@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveInput;
     private Vector3 _moveDirection;
     private Vector3 _finalDirection;
-    private float _verticalVelocity;
+    private float _verticalVelocity = 2f;
     private bool _hasDoubleJump;
 
     private void Awake()
