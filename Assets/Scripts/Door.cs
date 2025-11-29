@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
     [SerializeField] private Key key;
     [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private TMP_Text objectiveText;
 
     private bool _isTriggered = false;
 
@@ -15,7 +17,7 @@ public class Door : MonoBehaviour
             {
                 _isTriggered = true;
                 key.SpawnKey();
-                Debug.Log("You need the key to escape");
+                objectiveText.text = "Objective: Find the key";
             }
 
             else if (playerInventory.HasKey)

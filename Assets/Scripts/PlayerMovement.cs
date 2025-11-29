@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -20,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveInput;
     private Vector3 _moveDirection;
     private Vector3 _finalDirection;
-    private float _verticalVelocity = 2f;
+    private float _verticalVelocity = -2f;
     private bool _hasDoubleJump;
 
     private void Awake()

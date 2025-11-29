@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
         _navMeshAgent.SetDestination(playerTransform.position);
 
         distance = Vector3.Distance(transform.position, playerTransform.position);
-        Debug.Log(distance);
+
         if (distance <= 2f)
         {
             playerHealth.TakeDamage(20f * Time.deltaTime);

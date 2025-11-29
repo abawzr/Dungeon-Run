@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Key : MonoBehaviour
@@ -7,6 +8,7 @@ public class Key : MonoBehaviour
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private List<Transform> spawnPoints;
     [SerializeField] private AudioClip pickupClip;
+    [SerializeField] private TMP_Text objectiveText;
 
     private AudioSource _audioSource;
     private Rigidbody _rigidbody;
@@ -29,7 +31,7 @@ public class Key : MonoBehaviour
 
             _audioSource.PlayOneShot(pickupClip);
             Destroy(gameObject, pickupClip.length);
-            Debug.Log("Key Collected!");
+            objectiveText.text = "Objective: Use the key to escape";
         }
     }
 
