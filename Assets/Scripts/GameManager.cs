@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviour
         if (scene.name.Equals("Game"))
         {
             Cursor.lockState = CursorLockMode.Locked;
+
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.TurnOnInputs();
+            }
         }
 
         else if (scene.name.Equals("MainMenu"))

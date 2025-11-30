@@ -16,11 +16,19 @@ public class PlayerCamera : MonoBehaviour
     private Vector2 _lookInput;
     private float _xRotation = 0f;
 
-    private void Start()
+    private void OnEnable()
     {
         if (InputManager.Instance != null)
         {
             InputManager.Instance.OnLook += HandleLook;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnLook -= HandleLook;
         }
     }
 

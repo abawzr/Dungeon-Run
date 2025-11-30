@@ -6,11 +6,19 @@ public class PlayerCrouch : MonoBehaviour
     public static event Action<bool> OnPlayerCrouch;
     public static bool IsCrouch { get; private set; }
 
-    private void Start()
+    private void OnEnable()
     {
         if (InputManager.Instance != null)
         {
             InputManager.Instance.OnCrouch += HandleCrouch;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnCrouch -= HandleCrouch;
         }
     }
 

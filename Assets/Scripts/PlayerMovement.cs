@@ -20,6 +20,29 @@ public class PlayerMovement : MonoBehaviour
     private float _verticalVelocity = -2f;
     private bool _hasDoubleJump;
 
+    private void OnEnable()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnMove += HandleMove;
+            InputManager.Instance.OnJump += HandleJump;
+        }
+
+        PlayerCrouch.OnPlayerCrouch += ChangePlayerSpeed;
+
+    }
+
+    private void OnDisable()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnMove -= HandleMove;
+            InputManager.Instance.OnJump -= HandleJump;
+        }
+
+        PlayerCrouch.OnPlayerCrouch -= ChangePlayerSpeed;
+    }
+
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -28,14 +51,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
-        if (InputManager.Instance != null)
-        {
-            InputManager.Instance.OnMove += HandleMove;
-            InputManager.Instance.OnJump += HandleJump;
-        }
-
-        PlayerCrouch.OnPlayerCrouch += ChangePlayerSpeed;
 
         StartCoroutine(PlayFootstepSound());
     }
