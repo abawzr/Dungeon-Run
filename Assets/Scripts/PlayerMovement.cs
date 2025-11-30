@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (!_controller.isGrounded)
         {
-            _verticalVelocity += gravity;
+            _verticalVelocity += gravity * Time.deltaTime;
         }
     }
 
